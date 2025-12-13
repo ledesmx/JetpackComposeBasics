@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -56,12 +58,19 @@ fun Greetings(modifier: Modifier = Modifier) {
         modifier = modifier,
 //        color = MaterialTheme.colorScheme.background
     ) {
-        val names = listOf("Android", "World", "Compose", "Kotlin", "Rust")
-        Column {
-            for (name in names) {
+//        val names = listOf("Android", "World", "Compose", "Kotlin", "Rust")
+        val names: List<String> = List(1000) { "$it" }
+        LazyColumn {
+            items(items = names) { name ->
                 Greeting(name = name)
             }
+
         }
+//        Column {
+//            for (name in names) {
+//                Greeting(name = name)
+//            }
+//        }
     }
 }
 
