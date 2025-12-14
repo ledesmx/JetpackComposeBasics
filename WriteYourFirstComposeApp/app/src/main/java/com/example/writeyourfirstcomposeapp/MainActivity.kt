@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -40,6 +42,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 
 
 class MainActivity : ComponentActivity() {
@@ -72,7 +76,6 @@ fun Greetings(modifier: Modifier = Modifier) {
         modifier = modifier,
 //        color = MaterialTheme.colorScheme.background
     ) {
-//        val names = listOf("Android", "World", "Compose", "Kotlin", "Rust")
         val names: List<String> = List(1000) { "$it" }
         LazyColumn {
             items(items = names) { name ->
@@ -91,46 +94,61 @@ fun Greetings(modifier: Modifier = Modifier) {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extraPadding by animateDpAsState(
-        if (expanded) 54.dp else 22.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        )
-    )
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
+//    val extraPadding by animateDpAsState(
+//        if (expanded) 54.dp else 22.dp,
+//    )
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primary
+        ),
         modifier = modifier.padding(horizontal = 6.dp, vertical = 3.dp)
     ) {
-        Row(
-            modifier = modifier.padding(
-                // Make sure that the padding is never negative
-                bottom = extraPadding.coerceAtLeast(0.dp),
-                start = 8.dp,
-                top = 22.dp,
-                end = 8.dp
-            )
-        ) {
-            Text(
-                text = "Hello $name!",
-                modifier = modifier
-                    .padding(horizontal = 42.dp, vertical = 4.dp)
-                    .weight(1f),
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.ExtraBold
+        Column(
+            modifier = modifier
+                .padding(
+                    // Make sure that the padding is never negative
+//                bottom = extraPadding.coerceAtLeast(0.dp),
+                    bottom = 22.dp,
+                    start = 8.dp,
+                    top = 22.dp,
+                    end = 8.dp
                 )
-            )
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) {
-                        stringResource(R.string.show_less)
-                    } else {
-                        stringResource(R.string.show_more)
-                    }
+//                .animateContentSize(
+//                    animationSpec = spring(
+//                        dampingRatio = Spring.DampingRatioLowBouncy,
+//                        stiffness = Spring.StiffnessLow
+//                    )
+//                )
+        ) {
+            Row {
+                Text(
+                    text = "Hello $name!",
+                    modifier = modifier
+                        .padding(horizontal = 42.dp, vertical = 4.dp)
+                        .weight(1f),
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                )
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                        contentDescription = if (expanded) {
+                            stringResource(R.string.show_less)
+                        } else {
+                            stringResource(R.string.show_more)
+                        }
+                    )
+                }
+            }
+            AnimatedVisibility(expanded) {
+                Text(
+                    text = ("Composem ipsum color sit lazy, " +
+                            "padding theme elit, sed do bouncy. ").repeat(4),
                 )
             }
         }
+
     }
 }
 
