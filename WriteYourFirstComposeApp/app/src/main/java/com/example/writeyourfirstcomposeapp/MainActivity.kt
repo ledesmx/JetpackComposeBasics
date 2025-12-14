@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -78,14 +81,21 @@ fun Greetings(modifier: Modifier = Modifier) {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val expanded = rememberSaveable { mutableStateOf(false) }
-    val extraPadding = if (expanded.value) 54.dp else 22.dp
+    val extraPadding by animateDpAsState(
+        if (expanded.value) 54.dp else 11.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(horizontal = 6.dp, vertical = 3.dp)
     ) {
         Row(
             modifier = modifier.padding(
-                bottom = extraPadding,
+                // Make sure that the padding is never negative
+                bottom = extraPadding.coerceAtLeast(0.dp),
                 start = 8.dp,
                 top = 22.dp,
                 end = 8.dp
