@@ -1,5 +1,7 @@
 package com.example.writeyourfirstcomposeapp
 
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.writeyourfirstcomposeapp.ui.theme.WriteYourFirstComposeAppTheme
@@ -82,7 +85,7 @@ fun Greetings(modifier: Modifier = Modifier) {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val expanded = rememberSaveable { mutableStateOf(false) }
     val extraPadding by animateDpAsState(
-        if (expanded.value) 54.dp else 11.dp,
+        if (expanded.value) 54.dp else 22.dp,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessLow
@@ -105,7 +108,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 text = "Hello $name!",
                 modifier = modifier
                     .padding(horizontal = 42.dp, vertical = 4.dp)
-                    .weight(1f)
+                    .weight(1f),
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.ExtraBold
+                )
             )
             ElevatedButton(
                 onClick = { expanded.value = !expanded.value }
@@ -149,7 +155,11 @@ fun OnBoardingScreenPreview() {
     }
 }
 
-@Preview
+@Preview(
+    widthDp = 320, showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES, name = "GreetingsPreviewDark"
+)
+@Preview(widthDp = 320, showBackground = true)
 @Composable
 fun GreetingsPreview() {
     WriteYourFirstComposeAppTheme {
