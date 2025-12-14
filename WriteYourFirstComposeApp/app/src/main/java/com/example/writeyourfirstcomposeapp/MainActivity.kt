@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
-    var showOnboarding by remember { mutableStateOf(true) }
+    var showOnboarding by rememberSaveable { mutableStateOf(true) }
     Surface(modifier) {
         if (showOnboarding) {
             OnboardingScreen(onContinueClicked = { showOnboarding = false })
@@ -76,7 +77,7 @@ fun Greetings(modifier: Modifier = Modifier) {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val expanded = remember { mutableStateOf(false) }
+    val expanded = rememberSaveable { mutableStateOf(false) }
     val extraPadding = if (expanded.value) 54.dp else 22.dp
     Surface(
         color = MaterialTheme.colorScheme.primary,
