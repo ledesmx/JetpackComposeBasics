@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.basiclayoutsincompose.ui.theme.BasicLayoutsInComposeTheme
@@ -68,20 +70,25 @@ fun SearchBar(modifier: Modifier = Modifier) {
         onValueChange = {},
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(56.dp),
+            .heightIn(min = 56.dp),
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null
             )
         },
+//        colors = TextFieldDefaults.colors(
+//            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+//            focusedContainerColor = MaterialTheme.colorScheme.surface
+//        ),
+        placeholder = {
+            Text(stringResource(R.string.search_placeholder))
+        },
 //        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
 //        enabled = TODO(),
 //        readOnly = TODO(),
 //        textStyle = TODO(),
 //        label = TODO(),
-//        placeholder = TODO(),
-//        leadingIcon = TODO(),
 //        trailingIcon = TODO(),
 //        prefix = TODO(),
 //        suffix = TODO(),
@@ -95,14 +102,13 @@ fun SearchBar(modifier: Modifier = Modifier) {
 //        minLines = TODO(),
 //        interactionSource = TODO(),
 //        shape = TODO(),
-//        colors = TODO()
     )
 }
 
 @Preview
 @Composable
 fun SearchBarPreview() {
-    BasicLayoutsInComposeTheme() {
+    BasicLayoutsInComposeTheme {
         SearchBar()
     }
 }
