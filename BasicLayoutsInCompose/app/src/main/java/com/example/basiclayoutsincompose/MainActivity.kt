@@ -4,13 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.BorderStroke
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -21,11 +23,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -71,13 +71,17 @@ fun AppPreview() {
 }
 
 @Composable
-fun AlignYourBodyElement(modifier: Modifier = Modifier) {
+fun AlignYourBodyElement(
+    modifier: Modifier = Modifier,
+    @DrawableRes drawable: Int,
+    @StringRes text: Int
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(R.drawable.ab1_inversions),
+            painter = painterResource(drawable),
 //            bitmap = TODO(),
             contentDescription = null,
 //            modifier = TODO(),
@@ -90,7 +94,11 @@ fun AlignYourBodyElement(modifier: Modifier = Modifier) {
                 .size(88.dp)
                 .clip(CircleShape)
         )
-        Text(stringResource(R.string.ab1_inversions))
+        Text(
+            text = stringResource(text),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp)
+        )
     }
 }
 
@@ -149,6 +157,6 @@ fun SearchBarPreview() {
 @Composable
 fun AlignYourBodyElementPreview() {
     BasicLayoutsInComposeTheme {
-        AlignYourBodyElement()
+        AlignYourBodyElement(drawable = R.drawable.ab1_inversions, text = R.string.ab1_inversions)
     }
 }
