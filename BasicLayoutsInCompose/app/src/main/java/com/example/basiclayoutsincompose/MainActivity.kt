@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -133,6 +135,21 @@ fun App(modifier: Modifier = Modifier) {
 fun AppPreview() {
     BasicLayoutsInComposeTheme {
         App(Modifier.padding(11.dp))
+    }
+}
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Spacer(Modifier.height(16.dp))
+        SearchBar(modifier = Modifier.padding(horizontal = 16.dp))
+        HomeSection(R.string.align_your_body_title) {
+            AlignYourBodyRow()
+        }
+        HomeSection(R.string.favorite_collections_title) {
+            FavoriteCollectionsGrid()
+        }
+        Spacer(Modifier.height(16.dp))
     }
 }
 
@@ -338,5 +355,13 @@ fun HomeSectionPreview() {
         HomeSection(R.string.align_your_body_title) {
             AlignYourBodyRow()
         }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun HomeScreenPreview() {
+    BasicLayoutsInComposeTheme {
+        HomeScreen()
     }
 }
