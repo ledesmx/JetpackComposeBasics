@@ -13,12 +13,16 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -62,31 +66,57 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-data class AlignYourBodyItem(val drawable: Int, val text: Int)
+data class DrawableTextItem(val drawable: Int, val text: Int)
 val alignYourBodyData = listOf(
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab1_inversions,
         text = R.string.ab1_inversions
     ),
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab2_quick_yoga,
         text = R.string.ab2_quick_yoga
     ),
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab3_stretching,
         text = R.string.ab3_stretching
     ),
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab4_tabata,
         text = R.string.ab4_tabata
     ),
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab5_hiit,
         text = R.string.ab5_hiit
     ),
-    AlignYourBodyItem(
+    DrawableTextItem(
         drawable = R.drawable.ab6_pre_natal_yoga,
         text = R.string.ab6_pre_natal_yoga
+    )
+)
+val favoriteCollectionsData = listOf(
+    DrawableTextItem(
+        drawable = R.drawable.fc1_short_mantras,
+        text = R.string.fc1_short_mantras
+    ),
+    DrawableTextItem(
+        drawable = R.drawable.fc2_nature_meditations,
+        text = R.string.fc2_nature_meditations
+    ),
+    DrawableTextItem(
+        drawable = R.drawable.fc3_stress_and_anxiety,
+        text = R.string.fc3_stress_and_anxiety
+    ),
+    DrawableTextItem(
+        drawable = R.drawable.fc4_self_massage,
+        text = R.string.fc4_self_massage
+    ),
+    DrawableTextItem(
+        drawable = R.drawable.fc5_overwhelmed,
+        text = R.string.fc5_overwhelmed
+    ),
+    DrawableTextItem(
+        drawable = R.drawable.fc6_nightly_wind_down,
+        text = R.string.fc6_nightly_wind_down
     )
 )
 
@@ -106,6 +136,25 @@ fun AppPreview() {
     }
 }
 
+@Composable
+fun FavoriteCollectionsGrid(modifier: Modifier = Modifier) {
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier
+            .height(168.dp)
+    ) {
+        items(favoriteCollectionsData) { item ->
+            FavoriteCollectionCard(
+                drawable = item.drawable,
+                text = item.text,
+                modifier = Modifier.height(80.dp)
+            )
+        }
+    }
+}
 @Composable
 fun AlignYourBodyRow(modifier: Modifier = Modifier) {
     LazyRow(
@@ -253,5 +302,13 @@ fun FavoriteCollectionCardPreview() {
 fun AlignYourBodyRowPreview() {
     BasicLayoutsInComposeTheme {
         AlignYourBodyRow()
+    }
+}
+
+@Preview
+@Composable
+fun FavoriteCollectionsGridPreview() {
+    BasicLayoutsInComposeTheme {
+        FavoriteCollectionsGrid()
     }
 }
