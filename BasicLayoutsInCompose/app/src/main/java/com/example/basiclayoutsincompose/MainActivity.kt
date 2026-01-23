@@ -8,13 +8,16 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -37,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.basiclayoutsincompose.ui.theme.BasicLayoutsInComposeTheme
+import org.intellij.lang.annotations.JdkConstants
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +71,36 @@ fun App(modifier: Modifier = Modifier) {
 fun AppPreview() {
     BasicLayoutsInComposeTheme {
         App(Modifier.padding(11.dp))
+    }
+}
+
+@Composable
+fun FavoriteCollectionCard(
+    modifier: Modifier = Modifier,
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
+) {
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceVariant
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(255.dp)
+        ) {
+            Image(
+                painter = painterResource(drawable),
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+                contentScale = ContentScale.Crop
+            )
+            Text(
+                text = stringResource(text),
+                modifier = Modifier.padding(start = 8.dp),
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
     }
 }
 
@@ -158,5 +192,13 @@ fun SearchBarPreview() {
 fun AlignYourBodyElementPreview() {
     BasicLayoutsInComposeTheme {
         AlignYourBodyElement(drawable = R.drawable.ab1_inversions, text = R.string.ab1_inversions)
+    }
+}
+
+@Preview
+@Composable
+fun FavoriteCollectionCardPreview() {
+    BasicLayoutsInComposeTheme {
+        FavoriteCollectionCard(drawable = R.drawable.fc2_nature_meditations, text = R.string.fc2_nature_meditations)
     }
 }
