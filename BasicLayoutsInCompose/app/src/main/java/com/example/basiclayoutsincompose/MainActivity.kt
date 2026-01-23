@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -58,6 +62,34 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+data class AlignYourBodyItem(val drawable: Int, val text: Int)
+val alignYourBodyData = listOf(
+    AlignYourBodyItem(
+        drawable = R.drawable.ab1_inversions,
+        text = R.string.ab1_inversions
+    ),
+    AlignYourBodyItem(
+        drawable = R.drawable.ab2_quick_yoga,
+        text = R.string.ab2_quick_yoga
+    ),
+    AlignYourBodyItem(
+        drawable = R.drawable.ab3_stretching,
+        text = R.string.ab3_stretching
+    ),
+    AlignYourBodyItem(
+        drawable = R.drawable.ab4_tabata,
+        text = R.string.ab4_tabata
+    ),
+    AlignYourBodyItem(
+        drawable = R.drawable.ab5_hiit,
+        text = R.string.ab5_hiit
+    ),
+    AlignYourBodyItem(
+        drawable = R.drawable.ab6_pre_natal_yoga,
+        text = R.string.ab6_pre_natal_yoga
+    )
+)
+
 @Composable
 fun App(modifier: Modifier = Modifier) {
     Surface(modifier) {
@@ -71,6 +103,19 @@ fun App(modifier: Modifier = Modifier) {
 fun AppPreview() {
     BasicLayoutsInComposeTheme {
         App(Modifier.padding(11.dp))
+    }
+}
+
+@Composable
+fun AlignYourBodyRow(modifier: Modifier = Modifier) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        modifier = modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(drawable = item.drawable, text = item.text)
+        }
     }
 }
 
@@ -200,5 +245,13 @@ fun AlignYourBodyElementPreview() {
 fun FavoriteCollectionCardPreview() {
     BasicLayoutsInComposeTheme {
         FavoriteCollectionCard(drawable = R.drawable.fc2_nature_meditations, text = R.string.fc2_nature_meditations)
+    }
+}
+
+@Preview
+@Composable
+fun AlignYourBodyRowPreview() {
+    BasicLayoutsInComposeTheme {
+        AlignYourBodyRow()
     }
 }
