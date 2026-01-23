@@ -137,6 +137,24 @@ fun AppPreview() {
 }
 
 @Composable
+fun HomeSection(
+    @StringRes title: Int,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(title),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
+        )
+        content()
+    }
+}
+
+@Composable
 fun FavoriteCollectionsGrid(modifier: Modifier = Modifier) {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
@@ -310,5 +328,15 @@ fun AlignYourBodyRowPreview() {
 fun FavoriteCollectionsGridPreview() {
     BasicLayoutsInComposeTheme {
         FavoriteCollectionsGrid()
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun HomeSectionPreview() {
+    BasicLayoutsInComposeTheme {
+        HomeSection(R.string.align_your_body_title) {
+            AlignYourBodyRow()
+        }
     }
 }
