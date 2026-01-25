@@ -136,6 +136,15 @@ fun App(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun MySootheAppPortrait(modifier: Modifier = Modifier) {
+    BasicLayoutsInComposeTheme {
+        Scaffold(bottomBar = { BottomNavigation() }) { padding ->
+            HomeScreen(modifier = modifier.padding(padding))
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -179,7 +188,7 @@ fun HomeSection(
 }
 
 @Composable
-fun BottonNavigation(modifier: Modifier = Modifier) {
+fun BottomNavigation(modifier: Modifier = Modifier) {
     NavigationBar(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -430,6 +439,12 @@ fun HomeScreenSmallPreview() {
 @Composable
 fun BottonNavigationPreview() {
     BasicLayoutsInComposeTheme {
-        BottonNavigation()
+        BottomNavigation()
     }
+}
+
+@Preview
+@Composable
+fun MySootheAppPortraitPreview() {
+    MySootheAppPortrait()
 }
