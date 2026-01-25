@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,6 +39,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
@@ -137,10 +141,22 @@ fun App(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MySootheAppPortrait(modifier: Modifier = Modifier) {
+fun MySootheAppPortrait() {
     BasicLayoutsInComposeTheme {
         Scaffold(bottomBar = { BottomNavigation() }) { padding ->
-            HomeScreen(modifier = modifier.padding(padding))
+            HomeScreen(modifier = Modifier.padding(padding))
+        }
+    }
+}
+
+@Composable
+fun MySootheAppLandscape() {
+    BasicLayoutsInComposeTheme {
+        Surface {
+            Row(horizontalArrangement = Arrangement.Start) {
+                AppNavigationRail()
+                HomeScreen()
+            }
         }
     }
 }
@@ -184,6 +200,54 @@ fun HomeSection(
                 .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
         )
         content()
+    }
+}
+
+@Composable
+private fun AppNavigationRail(modifier: Modifier = Modifier) {
+    NavigationRail(
+        modifier = modifier.padding(0.dp),
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ) {
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NavigationRailItem(
+                selected = true,
+                onClick = {},
+                label = {
+                    Text(stringResource(R.string.nav_home))
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        contentDescription = null
+                    )
+                },
+                colors = NavigationRailItemDefaults.colors(
+                    indicatorColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            )
+            Spacer(Modifier.height(24.dp))
+            NavigationRailItem(
+                selected = false,
+                onClick = {},
+                label = {
+                    Text(stringResource(R.string.nav_home))
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = null
+                    )
+                },
+                colors = NavigationRailItemDefaults.colors(
+                    indicatorColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            )
+        }
     }
 }
 
@@ -443,7 +507,26 @@ fun BottonNavigationPreview() {
     }
 }
 
-@Preview
+@Preview(
+    heightDp = 360
+)
+@Composable
+fun AppNavigationRailPreview() {
+    BasicLayoutsInComposeTheme {
+        AppNavigationRail()
+    }
+}
+
+@Preview(
+    name = "Landscape",
+    widthDp = 640,
+    heightDp = 360
+)
+@Composable
+fun MySootheAppLandscapePreview() {
+    MySootheAppLandscape()
+}
+@Preview(name = "Portrait")
 @Composable
 fun MySootheAppPortraitPreview() {
     MySootheAppPortrait()
