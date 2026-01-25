@@ -30,9 +30,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
@@ -170,6 +175,52 @@ fun HomeSection(
                 .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
         )
         content()
+    }
+}
+
+@Composable
+fun BottonNavigation(modifier: Modifier = Modifier) {
+    NavigationBar(
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
+    ) {
+        NavigationBarItem(
+            // TODO() Cambiar el color bg de selected
+            selected = true,
+            colors = NavigationBarItemDefaults.colors(
+                indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+            ),
+            onClick = {},
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(R.string.nav_home)
+                )
+            }
+        )
+        NavigationBarItem(
+            selected = false,
+            colors = NavigationBarItemDefaults.colors(
+                indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+            ),
+            onClick = {},
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(R.string.nav_profile)
+                )
+            },
+        )
     }
 }
 
@@ -372,5 +423,13 @@ fun HomeScreenPreview() {
 fun HomeScreenSmallPreview() {
     BasicLayoutsInComposeTheme {
         HomeScreen()
+    }
+}
+
+@Preview
+@Composable
+fun BottonNavigationPreview() {
+    BasicLayoutsInComposeTheme {
+        BottonNavigation()
     }
 }

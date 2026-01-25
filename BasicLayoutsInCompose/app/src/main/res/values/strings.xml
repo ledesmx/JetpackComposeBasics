@@ -15,4 +15,6 @@
     <string name="fc6_nightly_wind_down">Nightly wind down</string>
     <string name="align_your_body_title">Align your Body</string>
     <string name="favorite_collections_title">Favorite Collections</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Profile</string>
 </resources>
