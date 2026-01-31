@@ -47,6 +47,10 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,17 +68,12 @@ import com.example.basiclayoutsincompose.ui.theme.BasicLayoutsInComposeTheme
 import org.intellij.lang.annotations.JdkConstants
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            BasicLayoutsInComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    App(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            val windowSizeClass = calculateWindowSizeClass(this)
+            MySootheApp(windowSizeClass)
         }
     }
 }
@@ -141,6 +140,18 @@ fun App(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun MySootheApp(windowSize: WindowSizeClass) {
+    when(windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> {
+            MySootheAppPortrait()
+        }
+        WindowWidthSizeClass.Expanded -> {
+            MySootheAppLandscape()
+        }
+    }
+}
+
+@Composable
 fun MySootheAppPortrait() {
     BasicLayoutsInComposeTheme {
         Scaffold(bottomBar = { BottomNavigation() }) { padding ->
@@ -172,7 +183,9 @@ fun AppPreview() {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
+    Column(modifier = modifier
+        .verticalScroll(rememberScrollState())
+    ) {
         Spacer(Modifier.height(16.dp))
         SearchBar(modifier = Modifier.padding(horizontal = 16.dp))
         HomeSection(R.string.align_your_body_title) {
