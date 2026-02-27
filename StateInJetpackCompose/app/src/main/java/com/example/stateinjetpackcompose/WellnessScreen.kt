@@ -7,7 +7,7 @@ import com.example.stateinjetpackcompose.ui.theme.StateInJetpackComposeTheme
 
 @Composable
 fun WellnessScreen(modifier: Modifier = Modifier) {
-    WaterCounter(modifier)
+    StatefullCounter(modifier)
 }
 
 @Preview(showBackground = true)
