@@ -1,14 +1,14 @@
 package com.example.stateinjetpackcompose
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,17 +21,34 @@ fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
         var count by remember { mutableIntStateOf(0) }
         if (count > 0) {
+            var showTask by remember { mutableStateOf(true) }
             Text(
                 text = "You've had $count glasses.",
             )
+            if (showTask) {
+                WellnessTaskItem(
+                    task = "Task item",
+                    onClose = { showTask = false }
+                )
+            }
         }
-        Button(
-            onClick = { count++ },
-            enabled = count < 10,
+        Row(
             modifier = Modifier.padding(top = 4.dp)
         ) {
-            Text(text = "Add one")
+            Button(
+                onClick = { count++ },
+                enabled = count < 10,
+                modifier = Modifier.padding(end = 8.dp)
+            ) {
+                Text(text = "Add one")
+            }
+            Button(
+                onClick = { count = 0 }
+            ) {
+                Text(text = "Clear water count")
+            }
         }
+
     }
 }
 @Preview(showBackground = true)
