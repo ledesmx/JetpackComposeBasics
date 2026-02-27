@@ -20,12 +20,15 @@ import com.example.stateinjetpackcompose.ui.theme.StateInJetpackComposeTheme
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
         var count by remember { mutableIntStateOf(0) }
-        Text(
-            text = "You've had $count glasses.",
-        )
-        Spacer(modifier.height(16.dp))
+        if (count > 0) {
+            Text(
+                text = "You've had $count glasses.",
+            )
+        }
         Button(
-            onClick = { count++ }
+            onClick = { count++ },
+            enabled = count < 10,
+            modifier = Modifier.padding(top = 4.dp)
         ) {
             Text(text = "Add one")
         }
