@@ -1,15 +1,18 @@
 package com.example.stateinjetpackcompose
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +23,8 @@ import com.example.stateinjetpackcompose.ui.theme.StateInJetpackComposeTheme
 fun WellnessTaskItem(
     task: String,
     onClose: () -> Unit,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -32,6 +37,7 @@ fun WellnessTaskItem(
                 .padding(start = 16.dp)
                 .weight(1f)
         )
+        Checkbox(checked, onCheckedChange)
         IconButton(onClick = onClose) {
             Icon(
                 Icons.Filled.Close,
@@ -40,11 +46,25 @@ fun WellnessTaskItem(
         }
     }
 }
+@Composable
+fun WellnessTaskItem(
+    task: String,
+    modifier: Modifier = Modifier
+) {
+    var checkedState by remember { mutableStateOf(false) }
+    WellnessTaskItem(
+        task = task,
+        checked = checkedState,
+        onClose = {},
+        onCheckedChange = { newValue -> checkedState = newValue },
+        modifier = modifier
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
 fun WellnessTaskItemPreview() {
     StateInJetpackComposeTheme {
-        WellnessTaskItem(task = "Task example", {})
+        WellnessTaskItem("Task example")
     }
 }
