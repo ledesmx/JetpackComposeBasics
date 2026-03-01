@@ -50,13 +50,14 @@ fun WellnessTaskItem(
 @Composable
 fun WellnessTaskItem(
     task: String,
+    onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
         WellnessTaskItem(
             task = task,
             checked = checkedState,
-            onClose = { },
+            onClose = onClose,
             onCheckedChange = { newValue -> checkedState = newValue },
             modifier = modifier
         )
@@ -66,6 +67,6 @@ fun WellnessTaskItem(
 @Composable
 fun WellnessTaskItemPreview() {
     StateInJetpackComposeTheme {
-        WellnessTaskItem("Task example")
+        WellnessTaskItem("Task example", {})
     }
 }
