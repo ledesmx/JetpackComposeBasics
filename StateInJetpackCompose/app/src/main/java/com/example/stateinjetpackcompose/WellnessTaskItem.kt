@@ -52,13 +52,13 @@ fun WellnessTaskItem(
     modifier: Modifier = Modifier
 ) {
     var checkedState by remember { mutableStateOf(false) }
-    WellnessTaskItem(
-        task = task,
-        checked = checkedState,
-        onClose = {},
-        onCheckedChange = { newValue -> checkedState = newValue },
-        modifier = modifier
-    )
+        WellnessTaskItem(
+            task = task,
+            checked = checkedState,
+            onClose = { },
+            onCheckedChange = { newValue -> checkedState = newValue },
+            modifier = modifier
+        )
 }
 
 @Preview(showBackground = true)
