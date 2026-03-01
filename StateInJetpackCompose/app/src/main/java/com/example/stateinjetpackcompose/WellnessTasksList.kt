@@ -28,6 +28,6 @@ fun WellnessTasksList(
 @Composable
 fun WellnessTasksListPreview() {
     StateInJetpackComposeTheme {
-        WellnessTasksList(list = getWellnessTasks())
+        WellnessTasksList()
     }
 }
