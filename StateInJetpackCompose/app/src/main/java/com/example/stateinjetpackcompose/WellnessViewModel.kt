@@ -1,0 +1,20 @@
+package com.example.stateinjetpackcompose
+
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.toMutableStateList
+import androidx.lifecycle.ViewModel
+import kotlin.collections.remove
+
+class WellnessViewModel : ViewModel() {
+    private val _tasks = getWellnessTasks().toMutableStateList()
+    val tasks: List<WellnessTask> get() = _tasks
+    fun remove(task: WellnessTask) {
+        _tasks.remove(task)
+    }
+}
+private fun getWellnessTasks() = List(30) {
+        i -> WellnessTask(i, "Task # $i")
+}
+
+
+

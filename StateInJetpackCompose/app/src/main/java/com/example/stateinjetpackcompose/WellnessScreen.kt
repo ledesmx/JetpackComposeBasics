@@ -2,20 +2,21 @@ package com.example.stateinjetpackcompose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.stateinjetpackcompose.ui.theme.StateInJetpackComposeTheme
 
 @Composable
-fun WellnessScreen(modifier: Modifier = Modifier) {
-    val list = remember { getWellnessTasks().toMutableStateList() }
+fun WellnessScreen(
+    modifier: Modifier = Modifier,
+    wellnessViewModel: WellnessViewModel = viewModel()
+) {
     Column(modifier) {
         StatefullCounter()
         WellnessTasksList(
-            list = list,
-            onCloseTask = { task -> list.remove(task) }
+            list = wellnessViewModel.tasks,
+            onCloseTask = { task -> wellnessViewModel.remove(task) }
         )
     }
 }
@@ -28,6 +29,4 @@ fun WellnessScreenPreview() {
     }
 }
 
-private fun getWellnessTasks() = List(30) {
-    i -> WellnessTask(i, "Task # $i")
-}
+
