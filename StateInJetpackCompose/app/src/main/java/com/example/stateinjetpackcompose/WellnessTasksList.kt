@@ -13,7 +13,8 @@ import com.example.stateinjetpackcompose.ui.theme.StateInJetpackComposeTheme
 fun WellnessTasksList(
     modifier: Modifier = Modifier,
     list: List<WellnessTask>,
-    onCloseTask: (WellnessTask) -> Unit
+    onCloseTask: (WellnessTask) -> Unit,
+    onCheckedTask: (WellnessTask, Boolean) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -24,21 +25,23 @@ fun WellnessTasksList(
         ) { task ->
             WellnessTaskItem(
                 task = task.label,
-                onClose = { onCloseTask(task) }
+                checked = task.checked,
+                onClose = { onCloseTask(task) },
+                onChecked = { newValue -> onCheckedTask(task, newValue) }
             )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun WellnessTasksListPreview() {
-    StateInJetpackComposeTheme {
-        val list = remember { getWellnessTasks().toMutableStateList() }
-        WellnessTasksList(list = list, onCloseTask = {})
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun WellnessTasksListPreview() {
+//    StateInJetpackComposeTheme {
+//        val list = remember { getWellnessTasks().toMutableStateList() }
+//        WellnessTasksList(list = list, onCloseTask = {}, onCheckTask = {} )
+//    }
+//}
 
-private fun getWellnessTasks() = List(30) {
-        i -> WellnessTask(i, "Task # $i")
-}
+//private fun getWellnessTasks() = List(30) {
+//        i -> WellnessTask(i, "Task # $i", false)
+//}

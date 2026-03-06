@@ -47,26 +47,30 @@ fun WellnessTaskItem(
         }
     }
 }
+
 @Composable
 fun WellnessTaskItem(
     task: String,
+    checked: Boolean,
     onClose: () -> Unit,
+    onChecked: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var checkedState by rememberSaveable { mutableStateOf(false) }
-        WellnessTaskItem(
-            task = task,
-            checked = checkedState,
-            onClose = onClose,
-            onCheckedChange = { newValue -> checkedState = newValue },
-            modifier = modifier
-        )
+//    var checkedState by rememberSaveable { mutableStateOf(false) }
+    WellnessTaskItem(
+        task = task,
+        checked = checked,
+        onClose = onClose,
+        onCheckedChange = { newValue -> onChecked(newValue) },
+//        onCheckedChange = onCheck,
+        modifier = modifier
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun WellnessTaskItemPreview() {
     StateInJetpackComposeTheme {
-        WellnessTaskItem("Task example", {})
+        WellnessTaskItem("Task example", false, {}, {})
     }
 }
