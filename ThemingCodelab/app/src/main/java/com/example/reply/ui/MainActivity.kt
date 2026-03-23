@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.reply.data.LocalEmailsDataProvider
+import com.example.reply.ui.theme.AppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -52,18 +53,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Preview(
+    showBackground = true,
     uiMode = UI_MODE_NIGHT_YES,
     name = "DefaultPreviewDark"
 )
 @Preview(
+    showBackground = true,
     uiMode = UI_MODE_NIGHT_NO,
     name = "DefaultPreviewLight"
 )
 @Composable
 fun ReplyAppPreviewLight() {
-    ReplyApp(
-        replyHomeUIState = ReplyHomeUIState(
-            emails = LocalEmailsDataProvider.allEmails
+    AppTheme {
+        ReplyApp(
+            replyHomeUIState = ReplyHomeUIState(
+                emails = LocalEmailsDataProvider.allEmails
+            )
         )
-    )
+    }
+
 }
